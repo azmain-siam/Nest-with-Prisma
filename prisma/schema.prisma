@@ -16,6 +16,31 @@ model Product {
   price Float
   sale Boolean @default(false)
   availability Availability
+  description Description?
+  reviews Reviews?
+  tags Tags[]
+}
+
+model Description {
+  id Int @default(autoincrement()) @id
+  content String
+  product Product @relation(fields: [productId] , references: [id])
+  productId Int @unique
+}
+
+model Reviews {
+  id Int @default(autoincrement()) @id
+  title String
+  content String
+  rating Int
+  product Product @relation(fields: [productId], references: [id])
+  productId Int @unique
+}
+
+model Tags {
+  id Int @default(autoincrement()) @id
+  content String
+  products Product[]
 }
 
 enum Availability {
